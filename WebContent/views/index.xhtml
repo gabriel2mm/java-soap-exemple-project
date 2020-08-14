@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<title>Titulo JSF</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+		crossorigin="anonymous" />
+</h:head>
+<h:body>
+	<h:panelGroup styleClass="container" layout="block"
+		id="consultar_correios">
+		<h:panelGroup layout="block"
+			style="position: absolute; left: 50%; top: 20%; transform: translateX(-50%) translateY(-20%); margin: 20px 0px;">
+			<h:form styleClass="form-inline">
+				<h:panelGroup layout="block"
+					styleClass="form-row align-items-center">
+					<h:panelGroup layout="block" styleClass="col-auto">
+						<h:panelGroup layout="block" styleClass="form-group">
+							<h:outputLabel value="Código de rastreio" for="rastreio"
+								styleClass="my-1 mr-2" />
+							<h:inputText label="Código de rastreio" id="rastreio"
+								name="rastreio" value="#{trackerBean.trackerCode}"
+								styleClass="form-control" required="required" />
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="col-auto">
+						<h:commandButton id="consultar" value="consultar"
+							styleClass="btn btn-primary">
+							<f:ajax listener="#{trackerBean.createRequest()}" execute="@form"
+								render="resultado" event="click" />
+						</h:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:form>
+
+			<h:panelGroup layout="block" id="resultado" style="margin-top: 20px;">
+				<h:messages styleClass="alert alert-danger" role="alert" />
+				<h:panelGroup layout="block"
+					rendered="#{trackerBean.trackerResponse != null}"
+					styleClass="jumbotron" prependId="false">
+
+					<h:panelGroup layout="block" styleClass="container">
+						<h:panelGroup layout="block" styleClass="row">
+							<h:panelGroup layout="block" styleClass="col-auto">
+								<h:outputLabel styleClass="text-center"
+									value="Número: #{trackerBean.trackerResponse.returnResponse.object.initials} - #{trackerBean.trackerResponse.returnResponse.object.number}" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="col-auto">
+								<h:outputLabel styleClass="text-center"
+									value="Nome: #{trackerBean.trackerResponse.returnResponse.object.name}" />
+							</h:panelGroup>
+
+							<h:panelGroup layout="block" styleClass="col-auto">
+								<h:outputLabel styleClass="text-center"
+									value="Categoria: #{trackerBean.trackerResponse.returnResponse.object.category}" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="row">
+							<h:panelGroup layout="block" styleClass="col-4">
+								<h:outputLabel styleClass="text-center"
+									value="Local: #{trackerBean.trackerResponse.returnResponse.object.event.local}" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="col-4">
+									<h:outputLabel styleClass="text-center"
+										value="Status: #{trackerBean.trackerResponse.returnResponse.object.event.status}" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="col-4">
+									<h:outputLabel styleClass="text-center"
+										value="UF/cidade: #{trackerBean.trackerResponse.returnResponse.object.event.state}/#{trackerBean.trackerResponse.returnResponse.object.event.city}" />
+								</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="col-4">
+								<h:outputLabel styleClass="text-center"
+									value="Data e hora: #{trackerBean.trackerResponse.returnResponse.object.event.date} #{trackerBean.trackerResponse.returnResponse.object.event.hour}" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="col-12">
+								<h:outputLabel styleClass="text-center"
+									value="Descrição: #{trackerBean.trackerResponse.returnResponse.object.event.description}" />
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+
+		
+		</h:panelGroup>
+	</h:panelGroup>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+</h:body>
+</html>
